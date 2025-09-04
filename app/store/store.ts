@@ -42,6 +42,7 @@ export const useGameStore = defineStore('game', {
         'Other': 0
       }
 
+
       const winAmount = bet * (coefficients[combination] || 0)
       this.balance += winAmount
       this.totalWins += winAmount
