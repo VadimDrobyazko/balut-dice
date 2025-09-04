@@ -8,3 +8,4 @@ export const diceList = {
   [diceRollEnum.STRAIGHT]: 'Straight',
   [diceRollEnum.OTHER]: 'Other'
 }
+
