@@ -54,6 +54,26 @@ export const useGameStore = defineStore('game', {
     }
   },
   actions: {
+    initFromLocalStorage() {
+      const saved = localStorage.getItem('gameState')
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        this.balance = parsed.balance ?? this.balance
+        this.totalBets = parsed.totalBets ?? this.totalBets
+        this.totalWins = parsed.totalWins ?? this.totalWins
+        this.history = parsed.history ?? this.history
+      }
+    },
+
+    saveToLocalStorage() {
+      localStorage.setItem('gameState', JSON.stringify({
+        balance: this.balance,
+        totalBets: this.totalBets,
+        totalWins: this.totalWins,
+        history: this.history
+      }))
+    },
+
     roll(bet: number) {
       if (bet <= 0 || bet > this.balance) return
 
@@ -73,6 +93,8 @@ export const useGameStore = defineStore('game', {
       this.totalWins += winAmount
       this.history.push(this.balance)
       this.lastRoll = { dice, combination, winAmount }
+
+      this.saveToLocalStorage()
     },
 
     getCombination(dice: number[]): string {
@@ -98,6 +120,7 @@ export const useGameStore = defineStore('game', {
       if (this.totalBets === 0) return 0;
       return (this.totalWins / this.totalBets) * 100;
     },
+
     simulateRTPWithBaseCoeff(trials: number = 1000000, bet: number = 15) {
       let totalBets = 0;
       let totalWins = 0;

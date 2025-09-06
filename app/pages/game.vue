@@ -13,7 +13,7 @@ const handleRoll = () => {
   setTimeout(() => {
     game.roll(bet.value)
     isRolling.value = false
-  }, 2000)
+  }, 1000)
 }
 </script>
 
@@ -28,7 +28,7 @@ const handleRoll = () => {
               :key="i"
               :class="{ 'cube-roll': isRolling }"
           >
-            {{ elem }}
+            {{ isRolling ? '' : elem }}
           </li>
         </ul>
       </div>

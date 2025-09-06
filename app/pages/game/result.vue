@@ -18,7 +18,7 @@ const game = useGameStore()
         <tr>
           <th>{{ game.totalWins.toFixed(0) }}</th>
           <th>{{ game.totalBets }}</th>
-          <td>{{ game.getRTP().toFixed(2) }}%</td>
+          <th>{{ game.getRTP().toFixed(2) }}%</th>
         </tr>
       </tbody>
     </table>

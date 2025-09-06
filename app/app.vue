@@ -3,6 +3,10 @@ import { useGameStore } from './store/store.js'
 
 const game = useGameStore()
 
+onMounted(() => {
+  game.initFromLocalStorage()
+})
+
 const handleSimulate = () => {
   const rtp = game.simulateRTPWithBaseCoeff(1000000, 1)
 
