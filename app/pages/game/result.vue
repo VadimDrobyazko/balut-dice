@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { useGameStore } from '../../store/store'
+const game = useGameStore()
+</script>
+
+
 <template>
   <div class="result">
     <table>
@@ -10,9 +16,9 @@
       </thead>
       <tbody>
         <tr>
-          <th>...</th>
-          <th>...</th>
-          <th>...</th>
+          <th>{{ game.totalWins.toFixed(0) }}</th>
+          <th>{{ game.totalBets }}</th>
+          <td>{{ game.getRTP().toFixed(2) }}%</td>
         </tr>
       </tbody>
     </table>

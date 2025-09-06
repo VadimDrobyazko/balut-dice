@@ -1,0 +1,1 @@
+export type Comb = 'Pair' | 'Triple' | 'Full House' | 'Straight' | 'Balut' | 'Other'

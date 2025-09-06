@@ -1,8 +1,20 @@
+<script setup lang="ts">
+import { useGameStore } from './store/store.js'
+
+const game = useGameStore()
+
+const handleSimulate = () => {
+  const rtp = game.simulateRTPWithBaseCoeff(1000000, 1)
+
+  window.alert(`RTP with base coefficients: ${rtp.toFixed(2)}%`)
+}
+</script>
+
 <template>
   <div class="app">
     <NuxtPage />
 
-    <a href="">Simulate</a>
+    <button @click.prevent="handleSimulate">Simulate</button>
   </div>
 </template>
 

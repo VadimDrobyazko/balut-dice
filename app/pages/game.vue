@@ -1,40 +1,68 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useGameStore } from '../store/store'
+
+const game = useGameStore()
+const bet = ref(15)
+const isRolling = ref(false)
+
+const handleRoll = () => {
+  if (isRolling.value) return
+  isRolling.value = true
+
+  setTimeout(() => {
+    game.roll(bet.value)
+    isRolling.value = false
+  }, 2000)
+}
+</script>
+
 <template>
   <div class="layout">
     <div class="sidebar">
       <div class="dice box">
         <h2>Dice</h2>
         <ul>
-          <li>?</li>
-          <li>?</li>
-          <li>?</li>
-          <li>?</li>
-          <li>?</li>
+          <li
+              v-for="(elem, i) in (game.lastRoll?.dice || [2, 2, 2, 2, 2])"
+              :key="i"
+              :class="{ 'cube-roll': isRolling }"
+          >
+            {{ elem }}
+          </li>
         </ul>
       </div>
 
       <div class="price box">
         <h2>Prices</h2>
         <ul class="list">
-          <li><span>Pair</span><span>x2</span></li>
-          <li><span>Triple</span><span>x2.5</span></li>
-          <li><span>Full House</span><span>x3</span></li>
-          <li><span>Balut</span><span>x4</span></li>
-          <li><span>Straight</span><span>x5</span></li>
-          <li><span>Other</span><span>x0</span></li>
+          <li
+              v-for="(coef, name) in game.baseCoefficients"
+              :key="name"
+          >
+            <span>{{ name }}</span>
+            <span>x{{ coef.toFixed(2) }}</span>
+          </li>
         </ul>
       </div>
 
       <div class="bet box">
         <h2>Bet</h2>
-        <form>
-          <input type="number" inputmode="numeric" min="1" required value="15" />
-          <button>ROLL</button>
+        <form @submit.prevent="handleRoll">
+          <input
+              type="number"
+              inputmode="numeric"
+              min="1"
+              required
+              v-model.number="bet"
+          />
+          <button type="submit"> {{ isRolling ? 'Rolling...' : 'ROLL' }}</button>
         </form>
       </div>
 
       <div class="balance box">
         <h2>Your Balance</h2>
-        <span></span>
+        <span>{{ game.balance.toFixed(2) }}</span>
       </div>
     </div>
 
@@ -145,6 +173,15 @@
       justify-content: space-between;
     }
   }
+}
+
+@keyframes rollAnimation {
+  0%   { transform: rotateX(0deg) rotateY(0deg); }
+  100% { transform: rotateX(360deg) rotateY(360deg); }
+}
+
+.cube-roll {
+  animation: rollAnimation 0.5s linear infinite;
 }
 
 .bet {
