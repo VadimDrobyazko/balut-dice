@@ -43,6 +43,8 @@ button {
   text-align: center;
   text-decoration: none;
   transition: .3s ease;
+  outline: none;
+  border: none;
 
   &:hover {
     transform: scale(0.95);

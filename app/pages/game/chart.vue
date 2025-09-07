@@ -21,7 +21,10 @@ const chartOptions = computed(() => ({
     }
   },
   xaxis: {
-    categories: game.history.map((_, i) => i + 1)
+    categories: game.history.map((_, i) => i + 1),
+    labels: {
+      show: false
+    },
   },
   yaxis: {
     title: { text: 'Balance' }
@@ -48,12 +51,11 @@ const chartOptions = computed(() => ({
   background: white;
   border: 1px solid #ccc;
   border-radius: 10px;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 798px;
-  min-height: 513px;
+  width: 100%;
+  height: 100%;
 
   .vue-apexcharts {
     width: 100%;

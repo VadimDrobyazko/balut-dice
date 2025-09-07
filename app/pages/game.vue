@@ -96,7 +96,7 @@ const handleRoll = () => {
 <style scoped>
 .layout {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   height: 50%;
   width: 80%;
@@ -120,16 +120,12 @@ const handleRoll = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 513px;
 }
 
 .main-container {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: fit-content;
-  height: fit-content;
+  width: 100%;
+  height: 100%;
 }
 
 .nav {
@@ -138,13 +134,14 @@ const handleRoll = () => {
   justify-content: center;
   gap: 10px;
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%, -100%);
+  transform: translate(-50%, -50%);
   transition: transform .3s ease;
 
   &.active {
     transform: translate(-50%, calc(-100% - 20px));
+    top: 0;
   }
 }
 
@@ -261,13 +258,36 @@ const handleRoll = () => {
   text-align: center;
   text-decoration: none;
   transition: .3s ease;
+  position: relative;
 
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid blue;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 15;
+  }
   &:hover {
     transform: scale(0.95);
   }
 
   &.router-link-active {
     background: rebeccapurple;
+
+    &:before {
+      opacity: 1;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid rebeccapurple;
+    }
   }
 }
 

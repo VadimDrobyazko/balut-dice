@@ -32,8 +32,8 @@ const game = useGameStore()
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 798px;
-  min-height: 513px;
+  width: 100%;
+  height: 100%;
 
   table {
     border-collapse: collapse;
