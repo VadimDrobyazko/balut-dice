@@ -11,7 +11,7 @@ export type RollResult = {
 
 export const useGameStore = defineStore('game', {
   state: () => ({
-    balance: 100,
+    balance: 1000,
     currentBet: 0,
     totalBets: 0,
     totalWins: 0,

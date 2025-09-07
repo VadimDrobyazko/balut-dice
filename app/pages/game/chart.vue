@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
+import { computed } from 'vue'
 import { useGameStore } from '../../store/store'
 
 const game = useGameStore()
 
-const chartOptions = ref({
+const chartSeries = computed(() => [
+  {
+    name: 'Balance',
+    data: game.history.map(val => parseFloat(val.toFixed(2)))
+  }
+])
+
+const chartOptions = computed(() => ({
   chart: {
     id: 'balance-chart',
     animations: {
@@ -14,31 +21,14 @@ const chartOptions = ref({
     }
   },
   xaxis: {
-    categories: [] as number[]
+    categories: game.history.map((_, i) => i + 1)
   },
   yaxis: {
-    title: {
-      text: 'Balance'
-    }
+    title: { text: 'Balance' }
   },
-  stroke: {
-    curve: 'smooth'
-  },
-  tooltip: {
-    enabled: true
-  }
-})
-
-const chartSeries = computed(() => [
-  {
-    name: 'Balance',
-    data: game.history.map(val => parseFloat(val.toFixed(2)))
-  }
-])
-
-onMounted(() => {
-  chartOptions.value.xaxis.categories = game.history.map((_, i) => i + 1)
-})
+  stroke: { curve: 'smooth' },
+  tooltip: { enabled: true }
+}))
 </script>
 
 <template>

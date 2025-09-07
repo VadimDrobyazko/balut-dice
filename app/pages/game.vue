@@ -9,11 +9,18 @@ const game = useGameStore()
 const bet = ref(15)
 const isRolling = ref(false)
 
+const diceIcons = ["⚀","⚁","⚂","⚃","⚄","⚅"];
+
 const handleRoll = () => {
   if (isRolling.value) return
   isRolling.value = true
 
+  let interval = setInterval(() => {
+    game.lastRoll = { dice: Array.from({ length: 5 }, () => Math.ceil(Math.random() * 6)), combination: '', winAmount: 0 }
+  }, 100)
+
   setTimeout(() => {
+    clearInterval(interval)
     game.roll(bet.value)
     isRolling.value = false
   }, 1000)
@@ -29,11 +36,13 @@ const handleRoll = () => {
         <h2>Dice</h2>
         <ul>
           <li
-              v-for="(elem, i) in (game.lastRoll?.dice || [2, 2, 2, 2, 2])"
+              v-for="(elem, i) in (game.lastRoll?.dice || [1, 1, 1, 1, 1])"
               :key="i"
               :class="{ 'cube-roll': isRolling }"
           >
-            {{ isRolling ? '' : elem }}
+            <span>
+              {{ diceIcons[elem - 1] }}
+            </span>
           </li>
         </ul>
       </div>
@@ -149,13 +158,13 @@ const handleRoll = () => {
 
     li {
       position: relative;
-      min-width: 40px;
-      min-height: 40px;
-      border-radius: 5px;
-      border: 1px solid black;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 60px;
+      min-height: 50px;
+      min-width: 50px;
+      perspective: 400px;
     }
   }
 }
@@ -197,12 +206,17 @@ const handleRoll = () => {
 }
 
 @keyframes rollAnimation {
-  0%   { transform: rotateX(0deg) rotateY(0deg); }
-  100% { transform: rotateX(360deg) rotateY(360deg); }
+  0% { transform: rotateX(0deg) rotateY(0deg); }
+  20% { transform: rotateX(90deg) rotateY(120deg); }
+  40% { transform: rotateX(180deg) rotateY(240deg); }
+  60% { transform: rotateX(270deg) rotateY(360deg); }
+  80% { transform: rotateX(360deg) rotateY(380deg); }
+  100% { transform: rotateX(350deg) rotateY(340deg); }
 }
 
 .cube-roll {
-  animation: rollAnimation 0.5s linear infinite;
+  display: inline-block;
+  animation: rollAnimation 0.8s ease-out forwards;
 }
 
 .bet {
