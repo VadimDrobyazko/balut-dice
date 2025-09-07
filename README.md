@@ -6,6 +6,10 @@ Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduct
 
 Recomend node -v 21
 
+Кнопка Simulate - 1,000,000 Операций с базовыми коеф.
+
+А Коефы в игре - уже с со средним RTP - 95%
+
 ## Setup
 
 Make sure to install dependencies:
