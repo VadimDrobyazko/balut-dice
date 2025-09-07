@@ -32,4 +32,24 @@ const handleSimulate = () => {
   flex-direction: column;
   gap: 40px;
 }
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: blue;
+  color: white;
+  font-size: 15px;
+  text-align: center;
+  text-decoration: none;
+  transition: .3s ease;
+
+  &:hover {
+    transform: scale(0.95);
+  }
+
+  &.router-link-active {
+    background: rebeccapurple;
+  }
+}
 </style>

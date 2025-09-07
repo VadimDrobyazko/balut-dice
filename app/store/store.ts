@@ -39,15 +39,15 @@ export const useGameStore = defineStore('game', {
     } as Probs
   }),
   getters: {
-    adjustedCoefficients(state) {
+    newCoefficients(state) {
       const expectedRTP = (Object.keys(state.baseCoefficients) as Comb[])
         .reduce((sum, k) => sum + state.baseCoefficients[k] * state.probs[k], 0);
 
-      const factor = 0.95 / expectedRTP;
+      const float = 0.95 / expectedRTP;
 
       const result: Record<Comb, number> = {} as Record<Comb, number>;
       (Object.keys(state.baseCoefficients) as Comb[]).forEach(k => {
-        result[k] = state.baseCoefficients[k] * factor;
+        result[k] = state.baseCoefficients[k] * float;
       });
 
       return result;
@@ -86,7 +86,7 @@ export const useGameStore = defineStore('game', {
       )
       const combination = this.getCombination(dice)
 
-      const coef = this.adjustedCoefficients[combination as Comb] || 0
+      const coef = this.newCoefficients[combination as Comb] || 0
       const winAmount = bet * coef
 
       this.balance += winAmount

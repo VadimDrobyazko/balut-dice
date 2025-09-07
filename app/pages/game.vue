@@ -37,7 +37,7 @@ const handleRoll = () => {
         <h2>Prices</h2>
         <ul class="list">
           <li
-              v-for="(coef, name) in game.baseCoefficients"
+              v-for="(coef, name) in game.newCoefficients"
               :key="name"
           >
             <span>{{ name }}</span>
