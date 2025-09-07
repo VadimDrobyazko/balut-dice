@@ -27,13 +27,13 @@ const game = useGameStore()
 
 <style>
 .result {
-  width: 100%;
   background: white;
   padding: 10px;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 798px;
+  min-height: 513px;
 
   table {
     border-collapse: collapse;

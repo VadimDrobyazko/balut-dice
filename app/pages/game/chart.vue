@@ -62,6 +62,8 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 798px;
+  min-height: 513px;
 
   .vue-apexcharts {
     width: 100%;

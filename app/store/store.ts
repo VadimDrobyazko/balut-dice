@@ -11,14 +11,12 @@ export type RollResult = {
 
 export const useGameStore = defineStore('game', {
   state: () => ({
-    balance: 55000,
+    balance: 100,
     currentBet: 0,
     totalBets: 0,
     totalWins: 0,
     history: [] as number[],
     lastRoll: null as RollResult | null,
-
-
 
     baseCoefficients: {
       'Pair': 2,
@@ -75,7 +73,10 @@ export const useGameStore = defineStore('game', {
     },
 
     roll(bet: number) {
-      if (bet <= 0 || bet > this.balance) return
+      if (bet <= 0 || bet > this.balance) {
+        window.alert('Balance invalid')
+        return
+      }
 
       this.currentBet = bet
       this.balance -= bet

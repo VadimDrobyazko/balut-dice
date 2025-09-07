@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useGameStore } from '../store/store'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const game = useGameStore()
 const bet = ref(15)
@@ -15,6 +18,8 @@ const handleRoll = () => {
     isRolling.value = false
   }, 1000)
 }
+
+
 </script>
 
 <template>
@@ -67,12 +72,14 @@ const handleRoll = () => {
     </div>
 
     <main class="main">
-      <nav class="nav">
-        <NuxtLink to="/game/chart" class="link">Chart</NuxtLink>
-        <NuxtLink to="/game/result" class="link">Result</NuxtLink>
-      </nav>
+      <div class="main-container">
+        <nav class="nav" :class="{ active: route.path === '/game/chart' || route.path === '/game/result' }">
+          <NuxtLink to="/game/chart" class="link">Chart</NuxtLink>
+          <NuxtLink to="/game/result" class="link">Result</NuxtLink>
+        </nav>
 
-      <NuxtPage />
+        <NuxtPage />
+      </div>
     </main>
   </div>
 </template>
@@ -80,20 +87,12 @@ const handleRoll = () => {
 <style scoped>
 .layout {
   display: flex;
-  align-items: stretch;
+  align-items: flex-start;
   justify-content: center;
   height: 50%;
   width: 80%;
   gap: 40px;
   background: grey;
-}
-
-.layout-content {
-  width: 100%;
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  gap: 40px;
 }
 
 .sidebar {
@@ -109,6 +108,19 @@ const handleRoll = () => {
 
 .main {
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 513px;
+}
+
+.main-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
 }
 
 .nav {
@@ -116,6 +128,15 @@ const handleRoll = () => {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  transition: transform .3s ease;
+
+  &.active {
+    transform: translate(-50%, calc(-100% - 20px));
+  }
 }
 
 .dice {
